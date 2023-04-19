@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Auth from "./Auth";
+import Callback from "./Callback";
+import Main from "./Main"; // Move the existing App content to a new Main component
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("spotifyAccessToken");
+    if (accessToken) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {isAuthenticated ? (
+        <Main />
+      ) : (
+        <>
+          <Route exact path="/" component={Auth} />
+          <Route path="/callback" component={Callback} />
+        </>
+      )}
+    </Router>
   );
 }
 
