@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
 
-const clientId = "d5af06ae3ae64a81a7a3bccbde8ff5be";
-const clientSecret = "ef5dee66178645a988e3f2fcd373e427";
-const redirectUri = "http://localhost:3000/callback";
+const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+const clientSecret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
+const redirectUri = process.env.REACT_APP_CALLBACK_URL;
 
 const Callback = () => {
   const history = useHistory();
